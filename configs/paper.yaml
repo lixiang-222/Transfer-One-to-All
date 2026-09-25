@@ -1,0 +1,50 @@
+# Values explicitly reported in Sections 5 and A.3.
+method:
+  alignment_weight: 0.1
+  rubric_sets_per_query: 4
+  responses_per_query: 4
+
+optimization:
+  learning_rate: 1.0e-6
+  kl_coefficient: 0.001
+  alternating_stages: 10
+  update_steps_per_stage: 20
+  train_prompts_per_step: 64
+  validation_prompts_per_step: 64
+
+models:
+  rubric_generator_backbone: Qwen3-4B
+  answer_policy_backbone: Qwen3-4B
+  frozen_judge: Qwen3-8B
+  frozen_evaluator_encoder: FsfairX-LLaMA3-RM-v0.1
+  lora_rank: 16
+
+data:
+  training_dataset: Tulu 3
+  coarse_preference_dataset: HelpSteer 1
+  coarse_preference_dimensions:
+    - helpfulness
+    - correctness
+    - coherence
+  rubric_benchmarks:
+    - RewardBench 2
+    - JudgeBench
+  policy_benchmarks:
+    - ResearchQA
+    - UltraFeedback
+
+evaluation:
+  judges:
+    - DeepSeek V4-Flash
+    - GPT-5.6-Luna
+    - Gemini 3.7-Flash
+
+# The paper defines these symbols but does not report numerical values.
+not_reported:
+  evaluator_alpha: null
+  grpo_clip_delta: null
+  normalization_epsilon: null
+  evaluator_hidden_dimensions: null
+  evaluator_fit_steps: null
+  evaluator_learning_rate: null
+  coarse_dimension_aggregation: null
